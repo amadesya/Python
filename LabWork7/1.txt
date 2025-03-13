@@ -7,14 +7,11 @@ if os.path.exists(file_name):
     k = 0
     with open(file_name, 'r') as file:
         for line in file:
-            k+=1
-            try:
-                numbers = list(map(int, line.split()))
-                if numbers:
-                    numbers_found = True
-                    print(f"Содержимое строки: {line}\nСумма чисел в строке {k}: {sum(int(numbers))}")
-            except ValueError:
-                continue
+            k += 1
+            numbers = list(map(int, line.split()))  # Преобразуем все элементы строки в числа
+            if numbers:  # Если в строке есть числа
+                numbers_found = True
+                print(f"Содержимое строки: {line.strip()}\nСумма чисел в строке {k}: {sum(numbers)}")
 
     if not numbers_found:
         print("В файле нет чисел.")
