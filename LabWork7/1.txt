@@ -1,117 +1,28 @@
-def factorial(n):
-    result = 1
-    for i in range(1, n + 1):
-        result *= i
-    return result
-
-# Пример вызова
-n = 5
-print(f"Факториал числа {n} равен: {factorial(n)}")
-
-def calculate_factorial(n):
-    result = 1
-    for i in range(1, n + 1):
-        result *= i
-        # Здесь можно поставить точку останова
-    return result
-
-# Пример вызова
-n = 5
-print(f"Факториал числа {n} равен: {calculate_factorial(n)}")
-
-import unittest
-
-def calculate_factorial(n):
-    result = 1
-    for i in range(1, n + 1):
-        result *= i
-    return result
-
-class TestFactorial(unittest.TestCase):
-    
-    def test_factorial_of_0(self):
-        self.assertEqual(calculate_factorial(0), 1)
-
-    def test_factorial_of_5(self):
-        self.assertEqual(calculate_factorial(5), 120)
-
-
-Создать класс Person, содержащий закрытые поля имя, возраст.
-Добавить методы для установки получения полей класса. Разработать тесты для
-проведения модульного тестирования созданных методов.
-
-    def test_factorial_of_1(self):
-        self.assertEqual(calculate_factorial(1), 1)
-
-    def test_factorial_of_10(self):
-        self.assertEqual(calculate_factorial(10), 3628800)
-
-if __name__ == "__main__":
-    unittest.main()
-
-class Person:
-    def __init__(self, name, age):
-        self.__name = name
-        self.__age = age
-
-    # Метод для получения имени
-    def get_name(self):
-        return self.__name
-
-    # Метод для установки имени
-    def set_name(self, name):
-        self.__name = name
-
-    # Метод для получения возраста
-    def get_age(self):
-        return self.__age
-
-    # Метод для установки возраста
-    def set_age(self, age):
-        self.__age = age
-
-# Пример использования класса
-person = Person("Иван", 25)
-print(person.get_name())  # Выведет "Иван"
-print(person.get_age())   # Выведет 25
-
-import unittest
-
-class TestPerson(unittest.TestCase):
-
-    def setUp(self):
-        """Этот метод выполняется перед каждым тестом"""
-        self.person = Person("Иван", 30)
-
-    def test_get_name(self):
-        """Тест метода получения имени"""
-        self.assertEqual(self.person.get_name(), "Иван")
-
-    def test_set_name(self):
-        """Тест метода установки имени"""
-        self.person.set_name("Алексей")
-        self.assertEqual(self.person.get_name(), "Алексей")
-
-    def test_get_age(self):
-        """Тест метода получения возраста"""
-        self.assertEqual(self.person.get_age(), 30)
-
-    def test_set_age(self):
-        """Тест метода установки возраста"""
-        self.person.set_age(35)
-        self.assertEqual(self.person.get_age(), 35)
-
-    def test_invalid_age(self):
-        """Тест на установку некорректного возраста (например, отрицательного)"""
-        with self.assertRaises(ValueError):
-            self.person.set_age(-5)
-
-    def test_invalid_name(self):
-        """Тест на установку некорректного имени (например, пустое имя)"""
-        with self.assertRaises(ValueError):
-            self.person.set_name("")
-
-if __name__ == '__main__':
-    unittest.main()
-
-
+5.1 Написать программу, выводящую на экран содержимое файла, название
+которого ввел пользователь. Если название файла заканчивается на .py, после
+вывода его содержимого выполнять скрипт, содержащийся в этом файле,
+используя функцию exec(текст скрипта).
+Для получения расширения использовать:
+os.path.splitext(path) - разбивает путь на пару (root, ext), где ext начинается с
+точки и содержит не более одной точки.
+5.2 Написать программу, позволяющую записать введенный пользователем
+текст в файл (каждая введенная строка должна записываться с новой строки в
+конец файла). Признак конца ввода – введенная пользователем строка end. Перед
+2
+началом, если файл существует, запросить у пользователя информацию, нужно
+дописать или перезаписать файл.
+5.3 Написать программу, запрашивающую у пользователя имя исходного
+файла и предлагающую три операции: вывод содержимого файла на экран,
+удаление файла, переименование файла. Если файл требуется переименовать,
+запрашивать новое имя файла.
+5.4 Имеется текстовый файл (создать самостоятельно). Напечатать:
+- его первую строку;
+- его пятую строку;
+- его первые 5 строк;
+- его строки с s1-й по s2-ю;
+- весь файл.
+5.5 Дан файл, каждая строка которого может содержать одно или несколько
+целых чисел, разделенных одним или несколькими пробелами. Вычислите сумму
+чисел в каждой строке и выведите эту сумму (для каждой строки выводится
+сумма чисел в этой строке).
+6 Порядок выполнения
