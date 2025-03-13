@@ -1,20 +1,17 @@
-import os
-
 # Запрос имени файла у пользователя
-file_name = input("Введите название файла: ")
+file_name = input("Введите имя файла: ")
 
-# Получение расширения файла
-root, ext = os.path.splitext(file_name)
+# Запрос у пользователя, перезаписать или дописать в файл
+mode = input("Файл существует. Хотите перезаписать (w) или дописать (a)? ")
 
-# Проверка существования файла
-if os.path.exists(file_name):
-    # Чтение содержимого файла
-    with open(file_name, 'r') as file:
-        content = file.read()
-        print("Содержимое файла:\n", content)
+# Открытие файла в соответствующем режиме
+with open(file_name, mode) as file:
+    print("Введите строки. Введите 'end' для завершения.")
     
-    # Если файл имеет расширение .py, выполняем его содержимое
-    if ext == ".py":
-        exec(content)
-else:
-    print("Файл не найден.")
+    # Цикл для ввода строк
+    while True:
+        line = input()
+        if line == "end":
+            break
+        file.write(line + '\n')
+
