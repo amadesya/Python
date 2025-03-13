@@ -5,13 +5,19 @@ file_name = input("Введите имя файла: ")
 if os.path.exists(file_name):
     numbers_found = False
     with open(file_name, 'r') as file:
-        if not numbers_found:
-            print("В файле нет чисел.")
-        else:
-            for line in file:
-                numbers = list(map(int, line.split(), errors='ignore'))
+        for line in file:
+            # Попробуем преобразовать все элементы строки в числа
+            try:
+                numbers = list(map(int, line.split()))
                 if numbers:
                     numbers_found = True
+                    # Вычисление и вывод суммы чисел в строке
                     print(f"Сумма чисел в строке: {sum(numbers)}")
+            except ValueError:
+                # Если в строке нет чисел, продолжаем обработку
+                continue
+
+    if not numbers_found:
+        print("В файле нет чисел.")
 else:
     print("Файл не найден.")
