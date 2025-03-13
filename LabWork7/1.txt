@@ -1,30 +1,34 @@
-import os
-
 # Запрос имени файла у пользователя
 file_name = input("Введите имя файла: ")
 
+# Проверка существования файла
 if os.path.exists(file_name):
-    while True:
-        print("Выберите операцию:")
-        print("1. Вывод содержимого файла")
-        print("2. Удалить файл")
-        print("3. Переименовать файл")
-
-        choice = input("Введите номер операции: ")
-
-        if choice == "1":
-            with open(file_name, 'r') as file:
-                print(file.read())
-        elif choice == "2":
-            os.remove(file_name)
-            print(f"Файл {file_name} удален.")
-            break  # После удаления файла, программа завершится
-        elif choice == "3":
-            new_name = input("Введите новое имя файла: ")
-            os.rename(file_name, new_name)
-            file_name = new_name  # Обновляем имя файла
-            print(f"Файл переименован в {new_name}.")
-        else:
-            print("Неверный выбор.")
+    with open(file_name, 'r') as file:
+        lines = file.readlines()
+        
+        # Напечатать первую строку
+        if len(lines) > 0:
+            print("Первая строка:", lines[0].strip())
+        
+        # Напечатать пятую строку
+        if len(lines) > 4:
+            print("Пятая строка:", lines[4].strip())
+        
+        # Напечатать первые 5 строк
+        print("Первые 5 строк:")
+        for line in lines[:5]:
+            print(line.strip())
+        
+        # Запрос у пользователя s1 и s2 для вывода строк с s1-й по s2-ю
+        s1 = int(input("Введите начальную строку (s1): "))
+        s2 = int(input("Введите конечную строку (s2): "))
+        print(f"Строки с {s1}-й по {s2}-ю:")
+        for line in lines[s1-1:s2]:
+            print(line.strip())
+        
+        # Напечатать весь файл
+        print("Весь файл:")
+        for line in lines:
+            print(line.strip())
 else:
     print("Файл не найден.")
