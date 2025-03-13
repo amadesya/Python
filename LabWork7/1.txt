@@ -1,3 +1,5 @@
+import os
+
 # Запрос имени файла у пользователя
 file_name = input("Введите имя файла: ")
 
@@ -5,30 +7,46 @@ file_name = input("Введите имя файла: ")
 if os.path.exists(file_name):
     with open(file_name, 'r') as file:
         lines = file.readlines()
-        
+
         # Напечатать первую строку
         if len(lines) > 0:
             print("Первая строка:", lines[0].strip())
-        
+
         # Напечатать пятую строку
         if len(lines) > 4:
             print("Пятая строка:", lines[4].strip())
-        
+
         # Напечатать первые 5 строк
         print("Первые 5 строк:")
         for line in lines[:5]:
             print(line.strip())
-        
+
         # Запрос у пользователя s1 и s2 для вывода строк с s1-й по s2-ю
-        s1 = int(input("Введите начальную строку (s1): "))
-        s2 = int(input("Введите конечную строку (s2): "))
-        print(f"Строки с {s1}-й по {s2}-ю:")
-        for line in lines[s1-1:s2]:
-            print(line.strip())
-        
+        while True:
+            try:
+                s1 = int(input("Введите начальную строку (s1): "))
+                s2 = int(input("Введите конечную строку (s2): "))
+                
+                # Проверка, чтобы s1 и s2 были в пределах допустимого диапазона
+                if s1 < 1 or s2 < 1:
+                    raise ValueError("Номер строки должен быть положительным.")
+                if s1 > len(lines) or s2 > len(lines):
+                    raise ValueError(f"Номера строк должны быть от 1 до {len(lines)}.")
+                if s1 > s2:
+                    raise ValueError("Начальная строка не может быть больше конечной.")
+                
+                # Вывод строк с s1-й по s2-ю
+                print(f"Строки с {s1}-й по {s2}-ю:")
+                for line in lines[s1-1:s2]:
+                    print(line.strip())
+                break  # Выход из цикла после успешного ввода
+            except ValueError as e:
+                print(f"Ошибка: {e}. Попробуйте снова.")
+
         # Напечатать весь файл
         print("Весь файл:")
         for line in lines:
             print(line.strip())
+
 else:
     print("Файл не найден.")
