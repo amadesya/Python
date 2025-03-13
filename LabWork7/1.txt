@@ -10,7 +10,10 @@ if os.path.exists(file_name):
                 numbers = list(map(int, line.split()))
                 if numbers:
                     numbers_found = True
-                    print(f"Сумма чисел в строке с содержимым '{line.strip()}' : {sum(numbers)}")
+                    total = 0  # Инициализация переменной для суммы
+                    for num in numbers:
+                        total += num  # Суммирование чисел вручную
+                    print(f"Сумма чисел в строке с содержимым '{line.strip()}' : {total}")
             except ValueError:
                 continue
 
