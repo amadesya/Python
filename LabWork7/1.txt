@@ -1,25 +1,4 @@
-import os
-
-file_name = input("Введите имя файла: ")
-
-if os.path.exists(file_name):
-    numbers_found = False
-    with open(file_name, 'r') as file:
-        for line in file:
-            line = line.strip()  # Убираем лишние пробелы и символы новой строки
-            try:
-                # Разделяем строку по пробелам, удаляем пустые элементы и пытаемся преобразовать в числа
-                numbers = [int(num) for num in line.split() if num.isdigit()]
-                if numbers:  # Если найдены числа
-                    numbers_found = True
-                    total = 0
-                    for num in numbers:
-                        total += num  # Суммируем числа вручную
-                    print(f"Сумма чисел в строке с содержимым '{line}' : {total}")
-            except ValueError:
-                continue  # Если не удается преобразовать в число, пропускаем ошибочную строку
-
-    if not numbers_found:
-        print("В файле нет чисел.")
-else:
-    print("Файл не найден.")
+Дан файл, каждая строка которого может содержать одно или несколько
+целых чисел, разделенных одним или несколькими пробелами. Вычислите сумму
+чисел в каждой строке и выведите эту сумму (для каждой строки выводится
+сумма чисел в этой строке)
