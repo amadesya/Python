@@ -35,6 +35,11 @@ class TestFactorial(unittest.TestCase):
     def test_factorial_of_5(self):
         self.assertEqual(calculate_factorial(5), 120)
 
+
+Создать класс Person, содержащий закрытые поля имя, возраст.
+Добавить методы для установки получения полей класса. Разработать тесты для
+проведения модульного тестирования созданных методов.
+
     def test_factorial_of_1(self):
         self.assertEqual(calculate_factorial(1), 1)
 
