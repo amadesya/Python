@@ -6,16 +6,18 @@ if os.path.exists(file_name):
     numbers_found = False
     with open(file_name, 'r') as file:
         for line in file:
+            line = line.strip()  # Убираем лишние пробелы и символы новой строки
             try:
-                numbers = list(map(int, line.split()))
-                if numbers:
+                # Разделяем строку по пробелам, удаляем пустые элементы и пытаемся преобразовать в числа
+                numbers = [int(num) for num in line.split() if num.isdigit()]
+                if numbers:  # Если найдены числа
                     numbers_found = True
-                    total = 0  # Инициализация переменной для суммы
+                    total = 0
                     for num in numbers:
-                        total += num  # Суммирование чисел вручную
-                    print(f"Сумма чисел в строке с содержимым '{line.strip()}' : {total}")
+                        total += num  # Суммируем числа вручную
+                    print(f"Сумма чисел в строке с содержимым '{line}' : {total}")
             except ValueError:
-                continue
+                continue  # Если не удается преобразовать в число, пропускаем ошибочную строку
 
     if not numbers_found:
         print("В файле нет чисел.")
