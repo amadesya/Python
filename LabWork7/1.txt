@@ -1,12 +1,72 @@
-5.2 Написать скрипт, вычисляющий факториал числа n. Произвести
-пошаговую отладку кода. Ознакомится со значениями переменных во время
-отладки.
-5.3 Вынести код из пункта 5.1 в отдельную функцию. Добавить точку
-останова (брейкпоинт) на строчку кода, где изменяется значение переменной
-факториала. Произвести отладку с переходом по точкам останова.
-5.4 Произвести отладку с заходом функцию и без.
-5.5 Создать тест для проведения модульного тестирования созданного
-метода.
-5.6 Создать класс Person, содержащий закрытые поля имя, возраст.
-Добавить методы для установки получения полей класса. Разработать тесты для
-проведения модульного тестирования созданных методов.
+def factorial(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+# Пример вызова
+n = 5
+print(f"Факториал числа {n} равен: {factorial(n)}")
+
+def calculate_factorial(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+        # Здесь можно поставить точку останова
+    return result
+
+# Пример вызова
+n = 5
+print(f"Факториал числа {n} равен: {calculate_factorial(n)}")
+
+import unittest
+
+def calculate_factorial(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+class TestFactorial(unittest.TestCase):
+    
+    def test_factorial_of_0(self):
+        self.assertEqual(calculate_factorial(0), 1)
+
+    def test_factorial_of_5(self):
+        self.assertEqual(calculate_factorial(5), 120)
+
+    def test_factorial_of_1(self):
+        self.assertEqual(calculate_factorial(1), 1)
+
+    def test_factorial_of_10(self):
+        self.assertEqual(calculate_factorial(10), 3628800)
+
+if __name__ == "__main__":
+    unittest.main()
+
+class Person:
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
+
+    # Метод для получения имени
+    def get_name(self):
+        return self.__name
+
+    # Метод для установки имени
+    def set_name(self, name):
+        self.__name = name
+
+    # Метод для получения возраста
+    def get_age(self):
+        return self.__age
+
+    # Метод для установки возраста
+    def set_age(self, age):
+        self.__age = age
+
+# Пример использования класса
+person = Person("Иван", 25)
+print(person.get_name())  # Выведет "Иван"
+print(person.get_age())   # Выведет 25
+
