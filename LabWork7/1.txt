@@ -75,3 +75,43 @@ person = Person("Иван", 25)
 print(person.get_name())  # Выведет "Иван"
 print(person.get_age())   # Выведет 25
 
+import unittest
+
+class TestPerson(unittest.TestCase):
+
+    def setUp(self):
+        """Этот метод выполняется перед каждым тестом"""
+        self.person = Person("Иван", 30)
+
+    def test_get_name(self):
+        """Тест метода получения имени"""
+        self.assertEqual(self.person.get_name(), "Иван")
+
+    def test_set_name(self):
+        """Тест метода установки имени"""
+        self.person.set_name("Алексей")
+        self.assertEqual(self.person.get_name(), "Алексей")
+
+    def test_get_age(self):
+        """Тест метода получения возраста"""
+        self.assertEqual(self.person.get_age(), 30)
+
+    def test_set_age(self):
+        """Тест метода установки возраста"""
+        self.person.set_age(35)
+        self.assertEqual(self.person.get_age(), 35)
+
+    def test_invalid_age(self):
+        """Тест на установку некорректного возраста (например, отрицательного)"""
+        with self.assertRaises(ValueError):
+            self.person.set_age(-5)
+
+    def test_invalid_name(self):
+        """Тест на установку некорректного имени (например, пустое имя)"""
+        with self.assertRaises(ValueError):
+            self.person.set_name("")
+
+if __name__ == '__main__':
+    unittest.main()
+
+
