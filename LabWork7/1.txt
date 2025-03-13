@@ -1,22 +1,17 @@
 import os
 
-# Запрос имени файла у пользователя
 file_name = input("Введите имя файла: ")
 
-# Проверка существования файла
 if os.path.exists(file_name):
-    numbers_found = False  # Флаг, показывающий, найдены ли числа в файле
+    numbers_found = False
     with open(file_name, 'r') as file:
-        # Чтение строк файла
-        for line in file:
-            # Разделение строки на числа (разделители - пробелы)
-            numbers = list(map(int, line.split(), errors='ignore'))  # Преобразуем только числа
-            if numbers:  # Если в строке есть числа
-                numbers_found = True
-                # Вычисление и вывод суммы чисел в строке
-                print(f"Сумма чисел в строке: {sum(numbers)}")
-    
-    if not numbers_found:  # Если числа не были найдены ни в одной строке
-        print("В файле нет чисел.")
+        if not numbers_found:
+            print("В файле нет чисел.")
+        else:
+            for line in file:
+                numbers = list(map(int, line.split(), errors='ignore'))
+                if numbers:
+                    numbers_found = True
+                    print(f"Сумма чисел в строке: {sum(numbers)}")
 else:
     print("Файл не найден.")
