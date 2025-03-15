@@ -4,6 +4,23 @@ from tkinter import ttk, messagebox, filedialog, simpledialog
 from datetime import datetime
 import glob
 
+# Функция сортировки
+def sort_treeview(treeview, column, reverse=False):
+    """Сортировка столбцов в Treeview."""
+    items = list(treeview.get_children())
+    items.sort(key=lambda x: treeview.item(x, "values")[column], reverse=reverse)
+    
+    for index, item in enumerate(items):
+        treeview.move(item, '', index)
+    
+    return not reverse  # Возвращаем обратный порядок сортировки
+
+# Обработчики кликов по заголовкам
+def on_treeview_column_click(event, treeview, column):
+    """Обработчик кликов по заголовкам столбцов."""
+    global reverse_order
+    reverse_order = sort_treeview(treeview, column, reverse=reverse_order)
+
 def search_files():
     directory = filename_entry.get()
     if os.path.isdir(directory):
@@ -79,16 +96,25 @@ context_menu = Menu(root, tearoff=0)
 context_menu.add_command(label="Создать файл", command=create_file)
 context_menu.add_command(label="Удалить файл", command=delete_file)
 
+# Инициализация Treeview
 tree = ttk.Treeview(root, columns=("Имя файла", "Расширение", "Размер (байт)", "Дата изменения"), show='headings')
-tree.heading("Имя файла", text="Имя файла")
-tree.heading("Расширение", text="Расширение")
-tree.heading("Размер (байт)", text="Размер (байт)")
-tree.heading("Дата изменения", text="Дата изменения")
+
+# Определение заголовков
+tree.heading("Имя файла", text="Имя файла", command=lambda: on_treeview_column_click(event=None, treeview=tree, column=0))
+tree.heading("Расширение", text="Расширение", command=lambda: on_treeview_column_click(event=None, treeview=tree, column=1))
+tree.heading("Размер (байт)", text="Размер (байт)", command=lambda: on_treeview_column_click(event=None, treeview=tree, column=2))
+tree.heading("Дата изменения", text="Дата изменения", command=lambda: on_treeview_column_click(event=None, treeview=tree, column=3))
+
+# Размещение Treeview
 tree.grid(column=1, row=3, columnspan=5, sticky='nsew')
 
+# Привязка контекстного меню
 tree.bind("<Button-3>", show_context_menu)
 
 root.grid_rowconfigure(4, weight=1)
 root.grid_columnconfigure(1, weight=1)
+
+# Инициализация переменной для отслеживания порядка сортировки
+reverse_order = False
 
 root.mainloop()
