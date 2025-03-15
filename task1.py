@@ -38,20 +38,6 @@ def create_file():
             except Exception as e:
                 messagebox.showerror("Ошибка", str(e))
 
-def create_file_contextmenu():
-    directory = filedialog.askdirectory(title="Выберите папку для создания файла")  # Выбираем папку
-    if directory:
-        file_name = simpledialog.askstring("Создать файл", "Введите имя файла:")
-        if file_name:
-            file_path = os.path.join(directory, file_name)
-            try:
-                with open(file_path, 'w') as f:
-                    f.write("")
-                messagebox.showinfo("Успех", f"Файл '{file_name}' успешно создан в папке {directory}.")
-                search_files()
-            except Exception as e:
-                messagebox.showerror("Ошибка", str(e))
-
 def delete_file():
     selected_item = tree.selection()
     if selected_item:
@@ -90,7 +76,7 @@ delete_button = Button(root, text="Удалить файл", command=delete_file
 delete_button.grid(column=6, row=1)
 
 context_menu = Menu(root, tearoff=0)
-context_menu.add_command(label="Создать файл", command=create_file_contextmenu)  # Передаем саму функцию
+context_menu.add_command(label="Создать файл", command=create_file)
 context_menu.add_command(label="Удалить файл", command=delete_file)
 
 tree = ttk.Treeview(root, columns=("Имя файла", "Расширение", "Размер (байт)", "Дата изменения"), show='headings')
